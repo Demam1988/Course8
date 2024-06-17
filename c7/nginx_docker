@@ -1,0 +1,22 @@
+#  /etc/nginx/sites-available/...
+
+server {
+    listen 80;
+    server_name ${ALLOWED_HOSTS};
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /var/www/html/Course8/c7;
+    }
+
+    location /media/ {
+        root /var/www/html/Course8/c7;
+    }
+
+
+    location / {
+        include proxy_params;
+# for docker
+        proxy_pass http://127.0.0.1:8001;
+    }
+}
